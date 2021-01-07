@@ -3,12 +3,10 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from mylist import mmy
 from selenium.webdriver.support.ui import WebDriverWait
 import time
-import socks
-import socket
 from selenium.webdriver.support.expected_conditions import staleness_of
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from revenuehit import questJay
+
 import os
 import json
 from bs4 import BeautifulSoup
@@ -30,9 +28,9 @@ class Miny(object):
     self.binary = r'/usr/bin/firefox'
     self.proxy = None
     self.n = mmy
-    self.number = 1
     self.numb = 1
     self.ck = 1
+    self.number = 1
     self.hola = ['37.235.52.73','170.78.75.55','45.114.116.123','170.75.162.239','181.119.30.44',
                       '89.164.99.14','89.187.143.24','185.134.30.248','5.172.196.36','194.71.130.15',
                      '45.114.118.103','217.78.5.128','83.136.106.159','201.131.125.180','217.170.204.88',
@@ -63,26 +61,14 @@ class Miny(object):
     
     return "//a[@class='{n}']".format(n = (str(random.choice(np)).replace("['",'')).replace("']",''))
   
-  def tser(self, url):
-    np = []
-    sop =  BeautifulSoup(url,'html.parser')
-    old = BeautifulSoup((str(sop.find_all(id="SC_TBlock_810057")).replace('[','')).replace(']',''),'html.parser')
-    print(old) 
-    n = old.find_all('a')
-    print(n)
-    for i in range(len(n)):
-            np.append(n[i]['href'])
-    
-    return (str(random.choice(np)).replace("['",'')).replace("']",'')
-  
-  def myip(self, n):
+
+  def myip(self):
       try:
-        sop =  BeautifulSoup(n,'html.parser')
-        x = sop.find_all(class_="rna_ad")
-        return "rNA3218_{n}_title".format(n =random.randint(1,4))
+         return "//a[@id='rNA3289_{n}_title']".format(n =random.randint(1,4))
+        
       except Exception as e:
 
-        pass
+        pass 
   def heckProxy(self,nm):
     try:
         url ='https://awebanalysis.com/en/ip-lookup/{n}/'.format(n =nm)
@@ -104,46 +90,101 @@ class Miny(object):
         print('bad error CheckProxy')
         return True
 
-  def Recursion(self,k):
-     py = self.heckProxy(k)
-     jk =''
-     if py:
-        jk = self.Recursion(self.rad_c())
-     else:
-        jk = k 
-     return jk 
-  def serStart(self):
-      if self.st:
-          return self.proxy
-      else:
-          #self.server =Server(self.hen)
-          #self.server.start()
-          #self.proxy = self.server.create_proxy(params={'port':1700,'trustAllServers':'true'})
-          self.st  = True
-          return self.proxy
+  def questRe(self, url):
+    try:
+        
+        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0',
+         'Accept': '*/*',
+         'Connection': 'keep-alive',
+         'True-Client-IP': '3.6.114.227',
+         'Forwarded': 'for="3.6.114.227',
+         'Pragma': 'no-cache',
+         'Cache-Control': 'no-cache'}
+        myobj = {'status':'1',
+                'ping':"",
+                'selectedType':'SOCKS5',
+                'SelectedAnonymity':'Anonymous',
+                'sortPing':'false',
+                'sortTime':'true',
+                'sortUptime':'false'}
+
+        
+        x = requests.get(url, headers= header)
+        print(x.content)
+        return proxy
+    except Exception as e:
+        pass
+
+  def getroxyscan(self):
+    
+    url = 'https://hidemy.name/en/proxy-list/?country=ALARAMAUBDBABWBRBGKHCACLCOCDCRHRCZDKECFIFRGEDEGRHNHKHUINIDIRIQIEITJPKZKEKRLALVLBLRLYLTMKMWMYMXMDMNMMNPNLNINGPKPSPEPHPLPTPRRORURSSGSKSOZAESSECHSYTWTJTHTRUAGBUSVN&type=5#list'
+    try:
+        proxy = []
+        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0',
+         'Accept': '*/*',
+         'Connection': 'keep-alive',
+         'True-Client-IP': '3.6.114.227',
+         'Forwarded': 'for="3.6.114.227',
+         'Pragma': 'no-cache',
+         'Cache-Control': 'no-cache'}
+        myobj = {'status':'1',
+                'ping':"",
+                'selectedType':'SOCKS5',
+                'SelectedAnonymity':'Anonymous',
+                'sortPing':'false',
+                'sortTime':'true',
+                'sortUptime':'false'}
+
+        
+        x = requests.get(url, headers= header)
+        
+        x =  BeautifulSoup(x.content,'html.parser')
+        x = x.find(class_="table_block").find('tbody')
+        
+        x = x.find_all('tr')
+        for i in range(len(x)):
+           if str(x[i].find_all('td')[6].get_text()).endswith('seconds'):
+                proxy.append(x[i].td.get_text()+':'+x[i].find_all('td')[1].get_text())
+    
+        return proxy
+    except Exception as e:
+        pass
+
+  def h_ip(self,url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index(':')
+      hj = (oldURL[:index]).replace(':','')
+      return hj
   def lcm(self, url):
       oldURL = url
       index = 0
       newURL = oldURL
       index = oldURL.index('?')
       hj = '/ntclcm'+oldURL[index:]
-      
-  def Recl(self, kl):
-    try:
-     sop = kl 
-     f = ''
-     p=  json.loads(sop) 
-     for i in range(len(p)):
-         
-         if p[i]['rinfo']['rw']:
-             f = p[i]['rinfo']['rw']
-             
-     return {'ur':  self.lcm(random.choice(p)['ads'][0]['uf']),'ipm':f, 'which':True}
-     
-    except Exception as e:
-     print(e)
-     return {'ur': '','ipm':'','which':False}
+      return hj
+  def h_port(self,url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index(':')
+      hj = (oldURL[index:]).replace(':','')
+      return hj
+  def getAll(self):
+    movie = []
+    
+    n = self.getroxyscan()
+    if n is not None:
+        for i in range(len(n)):
+            movie.append(n[i])
+    n = self.getProxyscan()
+    if n is not None:
+        for i in range(len(n)):
+            movie.append(n[i])
+    return movie[+1:]
 
+  
   def getProxyscan(self):
     try:
         url = "https://www.proxyscan.io/Home/FilterResult"
@@ -179,119 +220,35 @@ class Miny(object):
         return proxy
     except Exception as e:
         pass
-    
-  def RecD(self, k):
-    try:
-     sop = BeautifulSoup(k,'html.parser')
-     url = ((sop.find('script').get_text()).replace('window.location = ','')).replace('"','')
-     
-     return url
-     
-    except Exception as e:
-     print(e)
-     return ''
-  def questRe(self, url):
-    try:
-        
-        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0',
-         'Accept': '*/*',
-         'Connection': 'keep-alive',
-         'True-Client-IP': '3.6.114.227',
-         'Forwarded': 'for="3.6.114.227',
-         'Pragma': 'no-cache',
-         'Cache-Control': 'no-cache'}
-        myobj = {'status':'1',
-                'ping':"",
-                'selectedType':'SOCKS5',
-                'SelectedAnonymity':'Anonymous',
-                'sortPing':'false',
-                'sortTime':'true',
-                'sortUptime':'false'}
 
-        
-        x = requests.get(url, headers= header)
-        print(x.content)
-        return proxy
-    except Exception as e:
-        pass
-  def getroxyscan(self):
-    
-    url = 'https://hidemy.name/en/proxy-list/?country=ALARAMAUBDBABWBRBGKHCACLCOCDCRHRCZDKECFIFRGEDEGRHNHKHUINIDIRIQIEITJPKZKEKRLALVLBLRLYLTMKMWMYMXMDMNMMNPNLNINGPKPSPEPHPLPTPRRORURSSGSKSOZAESSECHSYTWTJTHTRUAGBUSVN&type=5#list'
-    try:
-        proxy = []
-        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0',
-         'Accept': '*/*',
-         'Connection': 'keep-alive',
-         'True-Client-IP': '3.6.114.227',
-         'Forwarded': 'for="3.6.114.227',
-         'Pragma': 'no-cache',
-         'Cache-Control': 'no-cache'}
-        myobj = {'status':'1',
-                'ping':"",
-                'selectedType':'SOCKS5',
-                'SelectedAnonymity':'Anonymous',
-                'sortPing':'false',
-                'sortTime':'true',
-                'sortUptime':'false'}
-
-        
-        x = requests.get(url, headers= header)
-        
-        x =  BeautifulSoup(x.content,'html.parser')
-        x = x.find(class_="table_block").find('tbody')
-        
-        x = x.find_all('tr')
-        for i in range(len(x)):
-           if str(x[i].find_all('td')[6].get_text()).endswith('seconds'):
-                proxy.append(x[i].td.get_text()+':'+x[i].find_all('td')[1].get_text())
-    
-        return proxy
-    except Exception as e:
-        pass
-  def h_ip(self,url):
-      oldURL = url
-      index = 0
-      newURL = oldURL
-      index = oldURL.index(':')
-      hj = (oldURL[:index]).replace(':','')
-      return hj
-  def lcm(self, url):
-      oldURL = url
-      index = 0
-      newURL = oldURL
-      index = oldURL.index('?')
-      hj = '/ntclcm'+oldURL[index:]
-      return hj
-  def h_port(self,url):
-      oldURL = url
-      index = 0
-      newURL = oldURL
-      index = oldURL.index(':')
-      hj = (oldURL[index:]).replace(':','')
-      return hj
-  def getAll(self):
-    movie = []
-    
-    n = self.getroxyscan()
-    if n is not None:
-        for i in range(len(n)):
-            movie.append(n[i])
-    n = self.getProxyscan()
-    if n is not None:
-        for i in range(len(n)):
-            movie.append(n[i])
-    return movie[+1:]
-  
-  def get_random_string(self, length):
-    gh =  ["https://player.fm/music/","https://player.fm/mix/",
-      "https://player.fm/songs/","https://player.fm/videos/","https://player.fm/celebrities/",
-     "https://player.fm/","https://player.fm/news/","https://player.fm/famouspeople/","https://player.fm/lyrics","https://player.fm/shows/3/",
-                 "https://player.fm/movies/1/"]
-    letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-/'
+  def Recursion(self,k):
+     py = self.heckProxy(k)
+     jk =''
+     if py:
+        jk = self.Recursion(self.rad_c())
+     else:
+        jk = k 
+     return jk 
+  def serStart(self):
+      if self.st:
+          return self.proxy
+      else:
+          #self.server =Server(self.hen)
+          #self.server.start()
+          #self.proxy = self.server.create_proxy(params={'port':1700,'trustAllServers':'true'})
+          self.st  = True
+          return self.proxy
+  def get_random_string(self,length):
+    gh =  ["https://www.junno.co/music/","https://www.junno.co/mix/",
+      "https://www.junno.co/songs/","https://www.junno.co/videos/","https://www.junno.co/celebrities/",
+     "https://www.junno.co/","https://www.junno.co/news/","https://www.junno.co/famouspeople/","https://www.junno.co/lyrics","https://www.junno.co/shows/3/",
+                 "https://www.junno.co/movies/1/"]
+    letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
     result_str = ''.join(random.choice(letters) for i in range(length))
     fn = random.choice(gh) + result_str
     return fn
-  def heckTit(self):
+  
+  def heckTi(self):
     try:
         url ='https://official-joke-api.appspot.com/jokes/random'
         nu = random.randint(1,2)
@@ -304,66 +261,114 @@ class Miny(object):
          'Cache-Control': 'no-cache'}
         x = requests.get(url, headers= header)
         x =  x.json()
-        print(x)
+        
         if nu == 1:
            return (x['setup']).replace('?','')
         else:
             return (x['punchline']).replace('?','') 
     except Exception:
         
-        return 'Latest Celebrities  News List '  
+        return 'Latest Celebrities  News List'
+      
+  def chy(self, h,n):
+    return random.randint(h,n)
+
+  def stone(self,n):
+    gh = ["humor-jokes/","trending/","chutkule/"]
+    nu = random.randint(1,2)
+    if nu == 1:
+        return self.get_random_string(self.chy(6,20))
+    else:
+        return 'https://www.junno.co/' + random.choice(gh) + '-'.join(n.split())
+      
+
+
+  def scren(self):
+    n= self.chy(1024,1920)
+    gh = []
+    b =self.chy(171,600)
+    gh =[{"w":"1920","h":"1200"},{"w":"1024","h":"768"},{"w":"800","h":"600"},{"w":"1366","h":"768"},{"w":"1280","h":"1024"},
+         {"w":"500","h":"171"},{"w":"300","h":"371"},{"w":"{n}".format(n=n),"h":"500"},
+                                          {"w":"800","h":"{n}".format(n=b)}]
+    
+    return random.choice(gh)
   
   def browsSart(self):
-     try: 
-          
-             ip = '' #self.Recursion(self.rad_c()) #proxy =self.serStart()
+     try:
+             sc = self.scren()
+             #ip = self.Recursion(self.rad_c()) #proxy =self.serStart()
              pr = self.getAll()
              #roxy = random.choice(pr)
+             nser = random.choice(self.n)
              ns = random.choice(self.hola)
-             print(ns)
-             ptions = {
-                 'proxy': {
-                    'https': 'https://170.75.162.239:22222'.format(ns = ns),
-                    'http': 'http://170.75.162.239:22222'.format(ns = ns),
-                     'custom_authorization': 'Basic dXNlci11dWlkLTJjYzAwMzIwZDU3NWQ1NDZiYzBiNDJhNzUxYTFmZDQ3OmRjOGVjYzVhODM4YQ=='
-                    },
-                 'connection_timeout':None,
-                 'connection_keep_alive': True  
-                 } 
-             #print(roxy)
-             
+             roxy = random.choice(pr)
              cap = DesiredCapabilities().FIREFOX
              hrome_options = webdriver.ChromeOptions()
              profile = webdriver.FirefoxProfile()
-             uio = ['https://player.fm/news','https://player.fm/famouspeople','https://player.fm/lyrics','https://player.fm/shows/3',
-                 'https://player.fm/movies/1']
-             
-             
              
              options = Options()
              #options.add_argument("--headless")
              options.add_argument("--disable-web-security")
              #options.binary = self.binary
-             cap["marionette"] = True
-             
+             #cap["marionette"] = True
+             profile.set_preference("dom.push.enabled" ,True) 
+             profile.set_preference("browser.link.open_newwindow" ,1)
+             PROXY = self.h_ip(roxy)+':'+self.h_port(roxy) #"170.75.162.239:22222"
+             print(PROXY)
              profile.set_preference("browser.link.open_newwindow" ,1)
              
  
              profile.set_preference("general.useragent.override",random.choice(self.n))
              
-             
-             self.driver = webdriver.Firefox(firefox_profile = profile,firefox_options=options, capabilities=cap, executable_path='geckodriver.exe')
+             ip, port = PROXY.split(':')
+             profile.set_preference('network.proxy.type', 1)
+             profile.set_preference('network.proxy.socks', ip)
+             profile.set_preference('network.proxy.socks_port', int(port))
+             profile.update_preferences()
+             self.driver = webdriver.Firefox(firefox_profile = profile,options=options, capabilities=cap, executable_path='geckodriver.exe')
              from selenium.webdriver.support import expected_conditions as ec
              from selenium.webdriver.common.action_chains import ActionChains
-             #self.driver.get('https://p393158.clksite.com/adServe/banners?tid=393158-772142-POPUNDER&tagid=2')
              self.driver.get('http://127.0.0.1:8000/about')
-             #print((self.driver.page_source.strip()))
-             #questJay(self.driver.page_source)
-             #self.driver.get(questJay(self.driver.page_source))
-             por = self.driver.execute_script("return window.rNA_gVID();")
-             tim = self.driver.execute_script("return Date.now();")
-             print(por)
-             print(tim)
+             self.driver.execute_script(" document.referrer  = 'player.fm';")
+             element_present = EC.presence_of_element_located((By.XPATH, '//body'))
+             WebDriverWait(self.driver,10).until(element_present)
+             self.driver.implicitly_wait(5)
+             time.sleep(10)
+             #print(self.driver.page_source)
+             iframe = self.driver.find_elements_by_id("rNA3290")
+             print(len(iframe))
+             if len(iframe) > 0:
+               print(True)
+               element_presen = EC.presence_of_element_located((By.XPATH, '//body'))
+               WebDriverWait(self.driver,10).until(element_presen)
+               print(self.driver.page_source)
+               print(2)
+               element_prsent = EC.presence_of_element_located((By.XPATH, '//body'))
+               WebDriverWait(self.driver,10).until(element_prsent)
+               if self.numb >= 1: #self.ck:
+                 self.driver.find_element_by_class_name('rna_ad_link').click()
+                 nk = self.driver.find_element_by_class_name('rna_ad_link')
+                 ActionChains(self.driver).click(nk).perform()
+                 self.driver.implicitly_wait(5)
+                 element_prsent = EC.presence_of_element_located((By.XPATH, '//body'))
+                 WebDriverWait(self.driver,10).until(element_prsent)
+                 self.driver.implicitly_wait(1)
+                 self.numb = 1
+                 self.ck = random.randint(2,5)
+                 print(self.numb)
+                 
+               else:            
+                 print('ok')
+                 self.numb = self.numb + 1
+                 print(self.numb)            
+                 
+             else:
+               
+               element_present = EC.presence_of_element_located((By.XPATH, '//body'))
+               WebDriverWait(self.driver, 5).until(element_present)
+               print(self.driver.title)
+               time.sleep(10)
+             print(self.driver.title)
              self.driver.implicitly_wait(10)
              self.driver.delete_all_cookies()
              self.driver.execute_script('window.localStorage.clear();')
@@ -380,10 +385,11 @@ class Miny(object):
      except Exception as e:
           print(e)
           if self.driver:
-              pass #self.driver.quit()
+              self.driver.quit()
           os.system('fuser -n tcp -k 1700')
           self.st = False
-
+    
+  
 if __name__ == '__main__':
     
     miny = Miny()
