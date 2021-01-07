@@ -329,7 +329,6 @@ class Miny(object):
              from selenium.webdriver.support import expected_conditions as ec
              from selenium.webdriver.common.action_chains import ActionChains
              self.driver.get('http://127.0.0.1:8000/about')
-             self.driver.execute_script(" document.referrer  = 'player.fm';")
              element_present = EC.presence_of_element_located((By.XPATH, '//body'))
              WebDriverWait(self.driver,10).until(element_present)
              self.driver.implicitly_wait(5)
@@ -341,12 +340,10 @@ class Miny(object):
                print(True)
                element_presen = EC.presence_of_element_located((By.XPATH, '//body'))
                WebDriverWait(self.driver,10).until(element_presen)
-               print(self.driver.page_source)
+               #print(self.driver.page_source)
                print(2)
-               element_prsent = EC.presence_of_element_located((By.XPATH, '//body'))
-               WebDriverWait(self.driver,10).until(element_prsent)
                if self.numb >= 1: #self.ck:
-                 self.driver.find_element_by_class_name('rna_ad_link').click()
+                 
                  nk = self.driver.find_element_by_class_name('rna_ad_link')
                  ActionChains(self.driver).click(nk).perform()
                  self.driver.implicitly_wait(5)
