@@ -298,7 +298,7 @@ class Miny(object):
              sc = self.scren()
              #ip = self.Recursion(self.rad_c()) #proxy =self.serStart()
              pr = self.getAll()
-             #roxy = random.choice(pr)
+             roxy = random.choice(pr)
              nser = random.choice(self.n)
              ns = random.choice(self.hola)
              roxy = random.choice(pr)
@@ -328,9 +328,8 @@ class Miny(object):
              self.driver = webdriver.Firefox(firefox_profile = profile,options=options, capabilities=cap, executable_path='geckodriver.exe')
              from selenium.webdriver.support import expected_conditions as ec
              from selenium.webdriver.common.action_chains import ActionChains
-             self.driver.get('http://127.0.0.1:8000/about')
-             element_present = EC.presence_of_element_located((By.XPATH, '//body'))
-             WebDriverWait(self.driver,10).until(element_present)
+             self.driver.get('http://127.0.0.1:8000')
+             myElem = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rNA3290')))
              self.driver.implicitly_wait(5)
              time.sleep(10)
              #print(self.driver.page_source)
@@ -344,12 +343,17 @@ class Miny(object):
                print(2)
                if self.numb >= 1: #self.ck:
                  
-                 nk = self.driver.find_element_by_class_name('rna_ad_link')
-                 ActionChains(self.driver).click(nk).perform()
-                 self.driver.implicitly_wait(5)
+                 
+                 #self.driver.find_element_by_id( 'rNA3290_0_title').click()
+                 ActionChains(self.driver).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
+                 self.driver.implicitly_wait(20)
+                 time.sleep(20)
                  element_prsent = EC.presence_of_element_located((By.XPATH, '//body'))
                  WebDriverWait(self.driver,10).until(element_prsent)
                  self.driver.implicitly_wait(1)
+                 self.driver.refresh()
+                 ActionChains(self.driver).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
+                 self.driver.implicitly_wait(10)
                  self.numb = 1
                  self.ck = random.randint(2,5)
                  print(self.numb)
