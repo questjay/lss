@@ -239,10 +239,10 @@ class Miny(object):
           self.st  = True
           return self.proxy
   def get_random_string(self,length):
-    gh =  ["https://www.junno.co/music/","https://www.junno.co/mix/",
-      "https://www.junno.co/songs/","https://www.junno.co/videos/","https://www.junno.co/celebrities/",
-     "https://www.junno.co/","https://www.junno.co/news/","https://www.junno.co/famouspeople/","https://www.junno.co/lyrics","https://www.junno.co/shows/3/",
-                 "https://www.junno.co/movies/1/"]
+    gh =  ["https://player.fm/music/","https://player.fm/mix/",
+      "https://player.fm/songs/","https://player.fm/videos/","https://player.fm/celebrities/",
+     "https://player.fm/","https://player.fm/news/","https://player.fm/famouspeople/","https://player.fm/lyrics","https://player.fm/shows/3/",
+                 "https://player.fm/movies/1/"]
     letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
     result_str = ''.join(random.choice(letters) for i in range(length))
     fn = random.choice(gh) + result_str
@@ -279,7 +279,7 @@ class Miny(object):
     if nu == 1:
         return self.get_random_string(self.chy(6,20))
     else:
-        return 'https://www.junno.co/' + random.choice(gh) + '-'.join(n.split())
+        return 'https://player.fm/' + random.choice(gh) + '-'.join(n.split())
       
 
 
@@ -292,6 +292,81 @@ class Miny(object):
                                           {"w":"800","h":"{n}".format(n=b)}]
     
     return random.choice(gh)
+  def lcm(self, url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index('/f/')
+      hj = oldURL[index:]
+      return hj
+    
+  def lcs(self, url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index(',')
+      hj = oldURL[:index]
+      return (hj).replace("'","")
+    
+  def lcf(self, url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index("['")
+      hj = oldURL[index:]
+      n = (hj).replace("'","")
+      if (n).startswith('O'):
+        return 'go/'+(n[1:]).replace('O','')
+      else:
+       return 'dc/?id='+(n[1:]).replace('C','') 
+    
+  def lcl(self, url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index(']')
+      hj = oldURL[:index]
+      return (hj).replace("'","")
+    
+  def h_vid(self, url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index('vid=')
+      hj = oldURL[index:]
+      return hj
+    
+  def lcvi(self, url):
+      oldURL = url
+      index = 0
+      newURL = oldURL
+      index = oldURL.index('&')
+      hj = oldURL[:index]
+      return hj
+  def heckTit(self):
+    try:
+        url ='https://official-joke-api.appspot.com/jokes/random'
+        nu = random.randint(1,2)
+        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0',
+         'Accept': '*/*',
+         'Connection': 'keep-alive',
+         'True-Client-IP': '3.6.114.227',
+         'Forwarded': 'for="3.6.114.227',
+         'Pragma': 'no-cache',
+         'Cache-Control': 'no-cache'}
+        x = requests.get(url, headers= header)
+        x =  x.json()
+        print(x)
+        if nu == 1:
+           return (x['setup']).replace('?','') 
+        else:
+            return (x['punchline']).replace('?','') 
+    except Exception:
+        
+        return 'Latest Celebrities  News List | player.fm'
+  def heckSrcipt(self, nm):
+    x =  BeautifulSoup(nm,'html.parser')
+    return x.find_all("script")[1]['src']
   
   def browsSart(self):
      try:
@@ -319,7 +394,7 @@ class Miny(object):
              
  
              profile.set_preference("general.useragent.override",random.choice(self.n))
-             
+             pd = self.stone(self.heckTit())
              ip, port = PROXY.split(':')
              profile.set_preference('network.proxy.type', 1)
              profile.set_preference('network.proxy.socks', ip)
@@ -329,10 +404,29 @@ class Miny(object):
              from selenium.webdriver.support import expected_conditions as ec
              from selenium.webdriver.common.action_chains import ActionChains
              self.driver.get('http://127.0.0.1:8000')
-             myElem = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rNA3290')))
-             self.driver.implicitly_wait(5)
-             time.sleep(10)
-             #print(self.driver.page_source)
+             
+             self.driver.execute_script("window.stop();")
+             #myElem = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rNA3290')))
+             #self.driver.implicitly_wait(5)
+             #time.sleep(10)
+             nat =  self.heckSrcipt(self.driver.page_source)
+             ActionChains(self.driver).move_to_element(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
+             self.driver.execute_script("o.innerHTML = content;")
+             por = self.driver.execute_script("return window.rNA_aGp(document.querySelectorAll('a#rNA3290_0_title')[0]);")
+             print(por)
+             self.driver.get(por)
+             self.driver.implicitly_wait(30)
+             #por = self.driver.execute_script("return window.rNA_prot + '://nativeadmatch.com/' + ('O' == document.querySelectorAll('a#rNA3290_0_title')[0].cU.charAt(0) ? 'go/' : 'dc/?id=') + document.querySelectorAll('a#rNA3290_0_title')[0].cU.substr(1) + '&' + window.rNA_vid + '&h=' + window.getRnd(90,350) + ',' + window.getRnd(150,200) + ',' + window.rNA_getWH(document.querySelectorAll('a#rNA3290_0_title')[0]).w + ',' + window.rNA_getWH(document.querySelectorAll('a#rNA3290_0_title')[0]).h + ',' + (((new Date).getTime() - this.sT) / 1000).toFixed(3);".format(w=sc['w'],h=sc['h']))
+             #self.driver.get(por)
+
+             ActionChains(self.driver).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
+             self.driver.implicitly_wait(30)
+             """self.driver.get(nat)
+             gh = self.lcm(self.driver.page_source)
+             g = self.lcs(gh)
+             fg = self.lcl(self.lcf(gh))
+             #las = 'http://nativeadmatch.com/'+fg +'&'+ self.lcvi(self.h_vid(nat))+ 'h='+str(self.chy(316,600))+','+str(self.chy(90,350))+','+sc['w']+','+sc['h']+',0.'+str(self.chy(150,2))
+             #self.driver.get(las)"""
              iframe = self.driver.find_elements_by_id("rNA3290")
              print(len(iframe))
              if len(iframe) > 0:
@@ -343,8 +437,9 @@ class Miny(object):
                print(2)
                if self.numb >= 1: #self.ck:
                  
-                 
-                 #self.driver.find_element_by_id( 'rNA3290_0_title').click()
+                 por = self.driver.execute_script("return window.rNA_aGo();")
+                 print(por)
+                 self.driver.find_element_by_id( 'rNA3290_0_title').send_keys("\n")
                  ActionChains(self.driver).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
                  self.driver.implicitly_wait(20)
                  time.sleep(20)
