@@ -33,6 +33,9 @@ if (void 0 === window.rNA_init) {
       }
     }
   };
+   window.getRnd  = function(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
   window.rNA_gO = function (a) {
     var c = document.getElementById(a);
     if (c || window == top) c && (c.pw = window, c.pid = 0);
@@ -122,20 +125,43 @@ if (void 0 === window.rNA_init) {
   window.rNA_aOn = function (a) {
     this.sT = (new Date).getTime()
   };
-  window.rNA_aGo = function (a) {
+  window.rNA_aGo = function () {
+	  console.log(this);
     if (this.cU) {
       var c = window.rNA_getWH(this),
       b = window.rNA_getXY(this),
       d = window.rNA_getView(window),
       f = window.rNA_params[this.rNA].overlay;
-      a = [
-        a.pageX ? a.pageX : a.clientX + (f ? 0 : d.x),
+      /*a = [
+       / a.pageX ? a.pageX : a.clientX + (f ? 0 : d.x),
         a.pageY ? a.pageY : a.clientY + (f ? 0 : d.y)
-      ];
+      ];*/
 	  this.target ='_self';
-      this.href = window.rNA_prot + '://nativeadmatch.com/' + ('O' == this.cU.charAt(0) ? 'go/' : 'dc/?id=') + this.cU.substr(1) + '&' + window.rNA_vid + '&h=' + (a[0] - b.x) + ',' + (a[1] - b.y) + ',' + c.w + ',' + c.h + ',' + (((new Date).getTime() - this.sT) / 1000).toFixed(3)
+      this.href = window.rNA_prot + '://nativeadmatch.com/' + ('O' == this.cU.charAt(0) ? 'go/' : 'dc/?id=') + this.cU.substr(1) + '&' + window.rNA_vid + '&h=' + window.getRnd(90,350) + ',' + window.getRnd(150,200) + ',' + c.w + ',' + c.h + ',' + (((new Date).getTime() - this.sT) / 1000).toFixed(3);
+	  return this.href;
+	  
     
 	}
+	
+  };
+  window.rNA_aGp = function (n) {
+	  console.log(this);
+    if (n.cU) {
+      var c = window.rNA_getWH(n),
+      b = window.rNA_getXY(n),
+      d = window.rNA_getView(window),
+      f = window.rNA_params[n.rNA].overlay;
+      /*a = [
+       / a.pageX ? a.pageX : a.clientX + (f ? 0 : d.x),
+        a.pageY ? a.pageY : a.clientY + (f ? 0 : d.y)
+      ];*/
+	  n.target ='_blank';
+      return window.rNA_prot + '://nativeadmatch.com/' + ('O' == n.cU.charAt(0) ? 'go/' : 'dc/?id=') + n.cU.substr(1) + '&' + window.rNA_vid + '&h=' + window.getRnd(90,350) + ',' + window.getRnd(150,200) + ',' + c.w + ',' + c.h + ',0.' +window.getRnd(110,180);
+	  
+	  
+    
+	}
+	
   };
   window.rNA_aCx = function (a) {
     this.href = '#click_to_view'
@@ -289,9 +315,7 @@ if (void 0 === window.rNA_init) {
     tw = window
   } else tw = window;
   
-    window.getRnd  = function(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-};
+   
   window.makeid = function(length) {
    var result           = '';
    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
