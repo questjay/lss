@@ -367,7 +367,10 @@ class Miny(object):
   def heckSrcipt(self, nm):
     x =  BeautifulSoup(nm,'html.parser')
     return x.find_all("script")[1]['src']
-  
+
+  def heckAt(self, nm):
+    x =  BeautifulSoup(nm,'html.parser')
+    return x.find(id = "rNA3290_0_title")['href']
   def browsSart(self):
      try:
              sc = self.scren()
@@ -404,14 +407,20 @@ class Miny(object):
              from selenium.webdriver.support import expected_conditions as ec
              from selenium.webdriver.common.action_chains import ActionChains
              self.driver.get('http://127.0.0.1:8000')
-             
+             nm = self.driver
              self.driver.execute_script("window.stop();")
              #myElem = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rNA3290')))
              #self.driver.implicitly_wait(5)
              #time.sleep(10)
+             current_url = self.driver.current_url
+             print(current_url)
              nat =  self.heckSrcipt(self.driver.page_source)
-             ActionChains(self.driver).move_to_element(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
-             self.driver.execute_script("o.innerHTML = content;")
+             nh = self.heckAt(self.driver.page_source)
+             ActionChains(self.driver).move_to_element(self.driver.find_element_by_id( 'rNA3290_0_image')).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
+             
+             WebDriverWait(self.driver, 10).until(
+               lambda nm  : self.driver.current_url == nh)
+             print(self.driver.current_url)
              por = self.driver.execute_script("return window.rNA_aGp(document.querySelectorAll('a#rNA3290_0_title')[0]);")
              print(por)
              self.driver.get(por)
