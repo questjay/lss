@@ -383,7 +383,8 @@ class Miny(object):
              cap = DesiredCapabilities().FIREFOX
              hrome_options = webdriver.ChromeOptions()
              profile = webdriver.FirefoxProfile()
-             
+             gph =[{"url":"http://127.0.0.1:8000","n":1},{"url":"http://127.0.0.1:8000/m/twit/","n":2}]
+             ren = random.choice(gph)
              options = Options()
              #options.add_argument("--headless")
              options.add_argument("--disable-web-security")
@@ -406,8 +407,13 @@ class Miny(object):
              self.driver = webdriver.Firefox(firefox_profile = profile,options=options, capabilities=cap, executable_path='geckodriver.exe')
              from selenium.webdriver.support import expected_conditions as ec
              from selenium.webdriver.common.action_chains import ActionChains
-             self.driver.get('http://127.0.0.1:8000')
+             from selenium_move_cursor.MouseActions import move_to_element
+             import pyautogui
+             #self.driver.maximize_window()
+             self.driver.get(ren['url'])
              nm = self.driver
+             element_presen = EC.presence_of_element_located((By.XPATH, '//body'))
+             WebDriverWait(self.driver,10).until(element_presen)
              self.driver.execute_script("window.stop();")
              #myElem = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rNA3290')))
              #self.driver.implicitly_wait(5)
@@ -415,28 +421,63 @@ class Miny(object):
              current_url = self.driver.current_url
              print(current_url)
              nat =  self.heckSrcipt(self.driver.page_source)
-             nh = self.heckAt(self.driver.page_source)
-             ActionChains(self.driver).move_to_element(self.driver.find_element_by_id( 'rNA3290_0_image')).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
+             #nh = self.heckAt(self.driver.page_source)
              
-             WebDriverWait(self.driver, 10).until(
-               lambda nm  : self.driver.current_url == nh)
-             print(self.driver.current_url)
-             por = self.driver.execute_script("return window.rNA_aGp(document.querySelectorAll('a#rNA3290_0_title')[0]);")
-             print(por)
-             self.driver.get(por)
-             self.driver.implicitly_wait(30)
-             #por = self.driver.execute_script("return window.rNA_prot + '://nativeadmatch.com/' + ('O' == document.querySelectorAll('a#rNA3290_0_title')[0].cU.charAt(0) ? 'go/' : 'dc/?id=') + document.querySelectorAll('a#rNA3290_0_title')[0].cU.substr(1) + '&' + window.rNA_vid + '&h=' + window.getRnd(90,350) + ',' + window.getRnd(150,200) + ',' + window.rNA_getWH(document.querySelectorAll('a#rNA3290_0_title')[0]).w + ',' + window.rNA_getWH(document.querySelectorAll('a#rNA3290_0_title')[0]).h + ',' + (((new Date).getTime() - this.sT) / 1000).toFixed(3);".format(w=sc['w'],h=sc['h']))
-             #self.driver.get(por)
-
-             ActionChains(self.driver).click(self.driver.find_element_by_id( 'rNA3290_0_title')).perform()
-             self.driver.implicitly_wait(30)
+             last_height = self.driver.execute_script("return document.body.scrollHeight")
+             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+             print('ok')
+             if ren['url'] == "http://127.0.0.1:8000":
+               if self.numb >= 1: #self.ck:
+                  element_presen = EC.presence_of_element_located((By.ID, 'rNA3290_0_image'))
+                  WebDriverWait(self.driver,10).until(element_presen)
+                  #pyautogui.mouseDown()
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_0_title'), display_scaling=50, chrome_info_bar_shown=True)
+                  time.sleep(2)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_0_image'), display_scaling=100, chrome_info_bar_shown=False)
+                  time.sleep(3)
+                  pyautogui.click()
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_0_title'), display_scaling=100, chrome_info_bar_shown=False)
+                  time.sleep(1)
+                  element_present = EC.presence_of_element_located((By.XPATH, '//body'))
+                  WebDriverWait(self.driver, 5).until(element_present)
+                  self.numb = 1
+                  self.ck = random.randint(2,5)
+                  print(self.numb)
+               else:
+                  self.numb = self.numb + 1
+                  print(self.numb)
+             else:
+               if self.numb >= 1: #self.ck:
+                  element_presen = EC.presence_of_element_located((By.ID, 'rNA3338_0_image'))
+                  WebDriverWait(self.driver,10).until(element_presen)
+                  #pyautogui.mouseDown()
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_0_title'), display_scaling=50, chrome_info_bar_shown=True)
+                  time.sleep(2)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_0_image'), display_scaling=100, chrome_info_bar_shown=False)
+                  time.sleep(3)
+                  pyautogui.click()
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_0_title'), display_scaling=100, chrome_info_bar_shown=False)
+                  time.sleep(1)
+                  element_present = EC.presence_of_element_located((By.XPATH, '//body'))
+                  WebDriverWait(self.driver, 5).until(element_present)
+                  self.numb = 1
+                  self.ck = random.randint(2,5)
+                  print(self.numb)
+               else:
+                  self.numb = self.numb + 1
+                  print(self.numb)
+             #ActionChains(self.driver).click(self.driver.find_element_by_id( 'rNA3330_0_image')).perform()
+             #self.driver.find_element_by_id( 'rNA3330_0_title').click()
+             self.driver.implicitly_wait(10)
+             time.sleep(10)
+             
              """self.driver.get(nat)
              gh = self.lcm(self.driver.page_source)
              g = self.lcs(gh)
              fg = self.lcl(self.lcf(gh))
              #las = 'http://nativeadmatch.com/'+fg +'&'+ self.lcvi(self.h_vid(nat))+ 'h='+str(self.chy(316,600))+','+str(self.chy(90,350))+','+sc['w']+','+sc['h']+',0.'+str(self.chy(150,2))
-             #self.driver.get(las)"""
-             iframe = self.driver.find_elements_by_id("rNA3290")
+             #self.driver.get(las)
+             iframe = self.driver.find_elements_by_id("rNA3330")
              print(len(iframe))
              if len(iframe) > 0:
                print(True)
@@ -472,7 +513,9 @@ class Miny(object):
                element_present = EC.presence_of_element_located((By.XPATH, '//body'))
                WebDriverWait(self.driver, 5).until(element_present)
                print(self.driver.title)
-               time.sleep(10)
+               time.sleep(10)"""
+             if self.driver.title == 'Additional Verification':
+                self.driver.refresh()
              print(self.driver.title)
              self.driver.implicitly_wait(10)
              self.driver.delete_all_cookies()
