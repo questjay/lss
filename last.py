@@ -142,10 +142,12 @@ class Miny(object):
         x = x.find(class_="table_block").find('tbody')
         
         x = x.find_all('tr')
+        
         for i in range(len(x)):
            if str(x[i].find_all('td')[6].get_text()).endswith('seconds'):
+                
                 proxy.append(x[i].td.get_text()+':'+x[i].find_all('td')[1].get_text())
-    
+        
         return proxy
     except Exception as e:
         pass
@@ -214,9 +216,10 @@ class Miny(object):
         x = x.find_all('tr')
         for i in range(  len(x)):
           if str(x[i].find_all('td')[7].get_text()).endswith('seconds'):
+              print(x[i].th.get_text())
               proxy.append(x[i].th.get_text()+':'+x[i].td.get_text())
         
-    
+        
         return proxy
     except Exception as e:
         pass
