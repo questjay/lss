@@ -370,7 +370,17 @@ class Miny(object):
 
   def heckAt(self, nm):
     x =  BeautifulSoup(nm,'html.parser')
-    return x.find(id = "rNA3290_0_title")['href']
+    return len(x.find_all(class_ = "rna_ad")) - 1
+  
+  def Titlesion(self):
+     jk = ''
+     if self.driver.title == 'jay jay':
+        time.sleep(3)
+        self.Titlesion()
+     else:
+        jk = 'jkjkj'
+     return jk
+    
   def browsSart(self):
      try:
              sc = self.scren()
@@ -383,8 +393,9 @@ class Miny(object):
              cap = DesiredCapabilities().FIREFOX
              hrome_options = webdriver.ChromeOptions()
              profile = webdriver.FirefoxProfile()
-             gph =[{"url":"http://127.0.0.1:8000","n":1},{"url":"http://127.0.0.1:8000/m/twit/","n":2}]
+             gph ={"url":"http://127.0.0.1:8000","n":1},{"url":"http://127.0.0.1:8000/m/twit/","n":2}
              ren = random.choice(gph)
+             nums = int(ren["n"])
              options = Options()
              #options.add_argument("--headless")
              options.add_argument("--disable-web-security")
@@ -411,6 +422,7 @@ class Miny(object):
              import pyautogui
              #self.driver.maximize_window()
              self.driver.get(ren['url'])
+             self.driver.set_page_load_timeout(10)
              nm = self.driver
              element_presen = EC.presence_of_element_located((By.XPATH, '//body'))
              WebDriverWait(self.driver,10).until(element_presen)
@@ -426,42 +438,48 @@ class Miny(object):
              last_height = self.driver.execute_script("return document.body.scrollHeight")
              self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
              print('ok')
-             if ren['url'] == "http://127.0.0.1:8000":
-               if self.numb >= 1: #self.ck:
-                  element_presen = EC.presence_of_element_located((By.ID, 'rNA3290_0_image'))
+             que = random.randint(0, self.heckAt(self.driver.page_source))
+             print(que)
+             if nums == 1:
+               print('re1')
+               if self.numb == self.ck:
+                  element_presen = EC.presence_of_element_located((By.ID, 'rNA3290_{n}_image'.format(n = que)))
                   WebDriverWait(self.driver,10).until(element_presen)
                   #pyautogui.mouseDown()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_0_title'), display_scaling=50, chrome_info_bar_shown=True)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_{n}_title'.format(n = que)), display_scaling=random.randint(50,90), chrome_info_bar_shown=True)
                   time.sleep(2)
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_0_image'), display_scaling=100, chrome_info_bar_shown=False)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_{n}_image'.format(n = que)), display_scaling=100, chrome_info_bar_shown=False)
                   time.sleep(3)
                   pyautogui.click()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_0_title'), display_scaling=100, chrome_info_bar_shown=False)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_{n}_title'.format(n = que)), display_scaling=random.randint(90,100), chrome_info_bar_shown=False)
                   time.sleep(1)
                   element_present = EC.presence_of_element_located((By.XPATH, '//body'))
                   WebDriverWait(self.driver, 5).until(element_present)
+                  self.Titlesion()
                   self.numb = 1
-                  self.ck = random.randint(2,5)
+                  self.ck = random.randint(2,3)
                   print(self.numb)
                else:
                   self.numb = self.numb + 1
                   print(self.numb)
              else:
-               if self.numb >= 1: #self.ck:
-                  element_presen = EC.presence_of_element_located((By.ID, 'rNA3338_0_image'))
+               print('re2')
+               if self.numb == self.ck:
+                  element_presen = EC.presence_of_element_located((By.ID, 'rNA3338_{n}_image'.format(n = que)))
                   WebDriverWait(self.driver,10).until(element_presen)
                   #pyautogui.mouseDown()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_0_title'), display_scaling=50, chrome_info_bar_shown=True)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_{n}_title'.format(n = que)), display_scaling=random.randint(50,90), chrome_info_bar_shown=True)
                   time.sleep(2)
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_0_image'), display_scaling=100, chrome_info_bar_shown=False)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_{n}_image'.format(n = que)), display_scaling=100, chrome_info_bar_shown=False)
                   time.sleep(3)
                   pyautogui.click()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_0_title'), display_scaling=100, chrome_info_bar_shown=False)
+                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_{n}_title'.format(n = que)), display_scaling=random.randint(90,100), chrome_info_bar_shown=False)
                   time.sleep(1)
                   element_present = EC.presence_of_element_located((By.XPATH, '//body'))
                   WebDriverWait(self.driver, 5).until(element_present)
+                  self.Titlesion()
                   self.numb = 1
-                  self.ck = random.randint(2,5)
+                  self.ck = random.randint(2,3)
                   print(self.numb)
                else:
                   self.numb = self.numb + 1
