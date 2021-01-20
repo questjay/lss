@@ -216,7 +216,7 @@ class Miny(object):
         x = x.find_all('tr')
         for i in range(  len(x)):
           if str(x[i].find_all('td')[7].get_text()).endswith('seconds'):
-              print(x[i].th.get_text())
+              
               proxy.append(x[i].th.get_text()+':'+x[i].td.get_text())
         
         
@@ -443,18 +443,24 @@ class Miny(object):
              print('ok')
              que = random.randint(0, self.heckAt(self.driver.page_source))
              print(que)
+             
              if nums == 1:
                print('re1')
+               myDiv =  'rNA3290_{n}_image'.format(n = que)
+               myIv =  'rNA3290_{n}_title'.format(n = que)
+               bnn = 'var x = document.createEvent("MouseEvent"); x.initMouseEvent("mouseover", true, true); document.getElementById("{n}").dispatchEvent(x);'.format(n = myDiv)
+               bnQ = 'var x = document.createEvent("MouseEvent"); x.initMouseEvent("mouseover", true, true); document.getElementById("{n}").dispatchEvent(x);'.format(n = myIv)
+               print(bnn)
                if self.numb == self.ck:
                   element_presen = EC.presence_of_element_located((By.ID, 'rNA3290_{n}_image'.format(n = que)))
                   WebDriverWait(self.driver,10).until(element_presen)
                   #pyautogui.mouseDown()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_{n}_title'.format(n = que)), display_scaling=random.randint(50,90), chrome_info_bar_shown=True)
+                  self.driver.execute_script(bnQ)
                   time.sleep(2)
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_{n}_image'.format(n = que)), display_scaling=100, chrome_info_bar_shown=False)
+                  self.driver.execute_script(bnn)
                   time.sleep(3)
-                  pyautogui.click()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3290_{n}_title'.format(n = que)), display_scaling=random.randint(90,100), chrome_info_bar_shown=False)
+                  self.driver.find_element_by_id( 'rNA3290_{n}_image'.format(n = que)).click()
+                  self.driver.execute_script(bnQ)
                   time.sleep(1)
                   element_present = EC.presence_of_element_located((By.XPATH, '//body'))
                   WebDriverWait(self.driver, 5).until(element_present)
@@ -467,16 +473,21 @@ class Miny(object):
                   print(self.numb)
              else:
                print('re2')
+               myDiv =  'rNA3338_{n}_image'.format(n = que)
+               myIv =  'rNA3338_{n}_title'.format(n = que)
+               bnn = 'var x = document.createEvent("MouseEvent"); x.initMouseEvent("mouseover", true, true); document.getElementById("{n}").dispatchEvent(x);'.format(n = myDiv)
+               bnQ = 'var x = document.createEvent("MouseEvent"); x.initMouseEvent("mouseover", true, true); document.getElementById("{n}").dispatchEvent(x);'.format(n = myIv)
+               print(bnn)
                if self.numb == self.ck:
                   element_presen = EC.presence_of_element_located((By.ID, 'rNA3338_{n}_image'.format(n = que)))
                   WebDriverWait(self.driver,10).until(element_presen)
                   #pyautogui.mouseDown()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_{n}_title'.format(n = que)), display_scaling=random.randint(50,90), chrome_info_bar_shown=True)
+                  self.driver.execute_script(bnQ)
                   time.sleep(2)
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_{n}_image'.format(n = que)), display_scaling=100, chrome_info_bar_shown=False)
+                  self.driver.execute_script(bnn)
                   time.sleep(3)
-                  pyautogui.click()
-                  move_to_element(self.driver, self.driver.find_element_by_id( 'rNA3338_{n}_title'.format(n = que)), display_scaling=random.randint(90,100), chrome_info_bar_shown=False)
+                  self.driver.find_element_by_id( 'rNA3290_{n}_image'.format(n = que)).click()
+                  self.driver.execute_script(bnQ)
                   time.sleep(1)
                   element_present = EC.presence_of_element_located((By.XPATH, '//body'))
                   WebDriverWait(self.driver, 5).until(element_present)
